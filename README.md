@@ -20,7 +20,8 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 
 #Plan
 
-- Mock up UI
+- ~~Mock up UI~~
+- TODO: move presentation to App.jsx
 - Read and display data 
 - Compute output
 - Write UI for output
