@@ -29,6 +29,11 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 ##Later
 - Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
 
+##Feedback
+- Use (%) for Delta/Power/Coverage - more intuitive for users according to analyst
+    - TODO: (idea) client-side validation to ensure typed input is in right format  
+- Where to link after (let's get feedback from MSN after this is complete)
+
 Some things to call out:
 - This is a [Meteor](http://meteor.com) app
 - We are using [Semantic UI](https://atmospherejs.com/semantic/ui)
