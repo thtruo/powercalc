@@ -8,7 +8,7 @@
 /* Delta component represents the power form field in the calculator app */
 Delta = React.createClass({
   getInitialState: function() {
-    return {value: 0.01};
+    return {value: 1.0};
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
@@ -17,14 +17,14 @@ Delta = React.createClass({
     var value = this.state.value;
     return (
       <div className="field">
-        <label>Delta</label>
+        <label>Delta (%)</label>
         <div className="ui left icon input">
           <i className="asterisk icon"></i>
           <input
             type="text"
             name="delta"
             value={value}
-            placeholder="We recommend 0.01"
+            placeholder="We recommend 1%"
             onChange={this.handleChange}
           />
         </div>
@@ -36,7 +36,7 @@ Delta = React.createClass({
 /* Power component represents the power form field in the calculator app */
 Power = React.createClass({
   getInitialState: function() {
-    return {value: 0.95};
+    return {value: 95};
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
@@ -45,14 +45,14 @@ Power = React.createClass({
     var value = this.state.value;
     return (
       <div className="field">
-        <label>Power</label>
+        <label>Power (%)</label>
         <div className="ui left icon input">
           <i className="asterisk icon"></i>
           <input
             type="text"
             name="power"
             value={value}
-            placeholder="We recommend 0.95"
+            placeholder="We recommend 95%"
             onChange={this.handleChange}
           />
         </div>
@@ -64,7 +64,7 @@ Power = React.createClass({
 /* Coverage component represents the power form field in the calculator app */
 Coverage = React.createClass({
   getInitialState: function() {
-    return {value: 1.0};
+    return {value: 100};
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
@@ -73,14 +73,14 @@ Coverage = React.createClass({
     var value = this.state.value;
     return (
       <div className="field">
-        <label>Coverage</label>
+        <label>Coverage (%)</label>
         <div className="ui left icon input">
           <i className="asterisk icon"></i>
           <input
             type="text"
             name="coverage"
             value={value}
-            placeholder="We recommend 1.0"
+            placeholder="We recommend 100%"
             onChange={this.handleChange}
           />
         </div>
