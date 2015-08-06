@@ -1,25 +1,28 @@
 /* App component represents the whole app */
 App = React.createClass({
 
-/*
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
-  // Loads items from the PowerCalculationData collection and
-  // puts them on this.data.powerCalculationData
+  // Loads items from the DataTable collection and
+  // puts them on this.data.dataTable
   getMeteorData() {
+    var distinctMarkets = _.uniq(DataTable.find({}, {
+      sort: {market: 1}, fields: {market: true}
+    }).fetch().map(function(x) {
+      return x.market;
+    }), true);
+    var distinctMetrics = _.uniq(DataTable.find({}, {
+      sort: {metric: 1}, fields: {metric: true}
+    }).fetch().map(function(x) {
+      return x.metric;
+    }), true);
     return {
-      powerCalculationData: PowerCalculationData.find({}).fetch()
+      dataTable: DataTable.find({}).fetch(),
+      dataTableMarkets: distinctMarkets,
+      dataTableMetrics: distinctMetrics
     }
   },
-
-  renderMarkets() {
-    // Get tasks from this.data.powerCalculationData
-    return this.data.powerCalculationData.map((mkt) => {
-      return <Market key={mkt._id} mkt={mkt} />;
-    });
-  },
-*/
 
   handleSubmit(event) {
     event.preventDefault();
