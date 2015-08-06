@@ -26,6 +26,26 @@ App = React.createClass({
     console.log("Clicked CalculateButton!");
   },
 
+  renderMarket() {
+    return <Market/>;
+  },
+
+  renderMetric() {
+    return <Metric />;
+  },
+
+  renderDelta() {
+    return <Delta />;
+  },
+
+  renderPower() {
+    return <Power />;
+  },
+
+  renderCoverage() {
+    return <Coverage />;
+  },
+
   renderCalculateButton() {
     return <CalculateButton />;
   },
@@ -34,46 +54,14 @@ App = React.createClass({
     return (
       <form className="ui large form" onSubmit={this.handleSubmit}>
         <div className="ui stacked segment">
-          <div className="field">
-            <label>Market</label>
-            <div className="ui left icon input">
-              <i className="asterisk icon"></i>
-              <input type="text" name="market" placeholder="en-us"/>
-            </div>
-          </div>
-          <div className="field">
-            <label>Metric</label>
-            <div className="ui left icon input">
-              <i className="asterisk icon"></i>
-              <input type="text" name="metric" placeholder="Sessions Per User"/>
-            </div>
-          </div>
-          <div className="field">
-            <label>Delta</label>
-            <div className="ui left icon input">
-              <i className="asterisk icon"></i>
-              <input type="text" name="delta" placeholder="1%"/>
-            </div>
-          </div>
-          <div className="field">
-            <label>Power</label>
-            <div className="ui left icon input">
-              <i className="asterisk icon"></i>
-              <input type="text" name="power" placeholder="95%"/>
-            </div>
-          </div>
-          <div className="field">
-            <label>Coverage</label>
-            <div className="ui left icon input">
-              <i className="asterisk icon"></i>
-              <input type="text" name="coverage" placeholder="100%"/>
-            </div>
-          </div>
+          {this.renderMarket()}
+          {this.renderMetric()}
+          {this.renderDelta()}
+          {this.renderPower()}
+          {this.renderCoverage()}
           {this.renderCalculateButton()}
         </div>
-
         <div className="ui error message"></div>
-
       </form>
     );
   }
