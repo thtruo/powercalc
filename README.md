@@ -21,11 +21,13 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 #Plan
 
 - ~~Mock up UI~~
-- TODO: move presentation to App.jsx
+- ~~TODO: move presentation to App.jsx~~
 - Read and display data 
 - Compute output
 - Write UI for output
 
+##Later
+- Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
 
 Some things to call out:
 - This is a [Meteor](http://meteor.com) app
