@@ -50,6 +50,7 @@ routepolicy@1.0.5
 semantic:ui@2.0.7
 semantic:ui-css@2.0.7
 semantic:ui-data@2.0.7
+semantic:ui-dropdown@2.0.7
 session@1.1.0
 spacebars@1.0.6
 spacebars-compiler@1.0.6
