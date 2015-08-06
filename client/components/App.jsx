@@ -1,9 +1,38 @@
 /* App component represents the whole app */
 App = React.createClass({
 
+/*
+  // This mixin makes the getMeteorData method work
+  mixins: [ReactMeteorData],
+
+  // Loads items from the PowerCalculationData collection and
+  // puts them on this.data.powerCalculationData
+  getMeteorData() {
+    return {
+      powerCalculationData: PowerCalculationData.find({}).fetch()
+    }
+  },
+
+  renderMarkets() {
+    // Get tasks from this.data.powerCalculationData
+    return this.data.powerCalculationData.map((mkt) => {
+      return <Market key={mkt._id} mkt={mkt} />;
+    });
+  },
+*/
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log("Clicked CalculateButton!");
+  },
+
+  renderCalculateButton() {
+    return <CalculateButton />;
+  },
+
   render() {
     return (
-      <form className="ui large form">
+      <form className="ui large form" onSubmit={this.handleSubmit}>
         <div className="ui stacked segment">
           <div className="field">
             <label>Market</label>
@@ -40,40 +69,12 @@ App = React.createClass({
               <input type="text" name="coverage" placeholder="100%"/>
             </div>
           </div>
-          <div className="ui fluid large teal submit button">Calculate Traffic</div>
+          {this.renderCalculateButton()}
         </div>
 
         <div className="ui error message"></div>
 
       </form>
-    );
-  }
-});
-
-/* Market component */
-Market = React.createClass({
-  propTypes: {
-    // This component gets the market to display through a React prop.
-    // We can use propTypes to indicate it is required
-    market: React.PropTypes.object.isRequired
-  },
-  render() {
-    return (
-      <li>{this.props.market.text}</li>
-    );
-  }
-});
-
-/* Metric component */
-Metric = React.createClass({
-  propTypes: {
-    // This component gets the metric to display through a React prop.
-    // We can use propTypes to indicate it is required
-    metric: React.PropTypes.object.isRequired
-  },
-  render() {
-    return (
-      <li>{this.props.metric.text}</li>
     );
   }
 });
