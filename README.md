@@ -25,6 +25,7 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - Read and display data 
 - Compute output
 - Write UI for output
+- Form validation
 
 ##Later
 - Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
@@ -33,6 +34,7 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - Use (%) for Delta/Power/Coverage - more intuitive for users according to analyst
     - TODO: (idea) client-side validation to ensure typed input is in right format  
 - Where to link after (let's get feedback from MSN after this is complete)
+- "Powered by ExP" looks like a button. Have a subtle font color and no background
 
 Some things to call out:
 - This is a [Meteor](http://meteor.com) app
