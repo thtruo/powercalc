@@ -14,7 +14,6 @@ Market = React.createClass({
       return x.market;
     }), true);
     return {
-      dataTable: DataTable.find({}).fetch(),
       dataTableMarkets: distinctMarkets
     }
   },
