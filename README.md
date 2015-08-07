@@ -22,13 +22,15 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 
 - ~~Mock up UI~~
 - ~~TODO: move presentation to App.jsx~~
-- Read and display data 
+- ~~Read and display data~~
 - Compute output
 - Write UI for output
 - Form validation
 
+
 ##Later
 - Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
+
 
 ##Feedback
 - Use (%) for Delta/Power/Coverage - more intuitive for users according to analyst
@@ -36,7 +38,9 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - Where to link after (let's get feedback from MSN after this is complete)
 - "Powered by ExP" looks like a button. Have a subtle font color and no background
 
-Some things to call out:
+-------------------------------------------------------------------------------
+
+###Some things to call out
 - This is a [Meteor](http://meteor.com) app
 - We are using [Semantic UI](https://atmospherejs.com/semantic/ui)
 - Of course, we are using [React](https://facebook.github.io/react/index.html)
