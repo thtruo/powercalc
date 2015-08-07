@@ -37,7 +37,7 @@ Metric = React.createClass({
     console.log("coverage value is: " + value);
     return (
       <div className="field">
-        <label>Market</label>
+        <label>Metric</label>
         <select name="metrics" className="ui selection dropdown" multiple="" id="multi-select">
           <option value="">Select your metrics</option>
           {this.renderFormSelects()}
