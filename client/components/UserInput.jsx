@@ -18,16 +18,15 @@ Delta = React.createClass({
     console.log("delta value is: " + value);
     return (
       <div className="field">
-        <label>Delta (%)</label>
-        <div className="ui left icon input">
-          <i className="asterisk icon"></i>
+        <label>Delta</label>
+        <div className="ui right labeled input">
           <input
             type="text"
             name="delta"
             value={value}
             placeholder="We recommend 1%"
-            onChange={this.handleChange}
-          />
+            onChange={this.handleChange} />
+          <div className="ui label">%</div>
         </div>
       </div>
     );
@@ -47,16 +46,15 @@ Power = React.createClass({
     console.log("power value is: " + value);
     return (
       <div className="field">
-        <label>Power (%)</label>
-        <div className="ui left icon input">
-          <i className="asterisk icon"></i>
+        <label>Power</label>
+        <div className="ui right labeled input">
           <input
             type="text"
             name="power"
             value={value}
             placeholder="We recommend 95%"
-            onChange={this.handleChange}
-          />
+            onChange={this.handleChange} />
+          <div className="ui label">%</div>
         </div>
       </div>
     );
@@ -73,19 +71,18 @@ Coverage = React.createClass({
   },
   render() {
     var value = this.state.value;
-    console.log("coverage value is: " + value);
+    console.log("metric value is: " + value);
     return (
       <div className="field">
-        <label>Coverage (%)</label>
-        <div className="ui left icon input">
-          <i className="asterisk icon"></i>
+        <label>Coverage</label>
+        <div className="ui right labeled input">
           <input
             type="text"
             name="coverage"
             value={value}
             placeholder="We recommend 100%"
-            onChange={this.handleChange}
-          />
+            onChange={this.handleChange} />
+          <div className="ui label">%</div>
         </div>
       </div>
     );
