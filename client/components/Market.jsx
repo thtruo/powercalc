@@ -34,6 +34,8 @@ Market = React.createClass({
   },
 
   render() {
+    var value = this.state.value;
+    console.log("market value is: " + value);
     return (
       <div className="field">
         <label>Market</label>

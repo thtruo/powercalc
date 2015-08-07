@@ -8,13 +8,14 @@
 /* Delta component represents the power form field in the calculator app */
 Delta = React.createClass({
   getInitialState: function() {
-    return {value: 1.0};
+    return {value: 1};
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
   },
   render() {
     var value = this.state.value;
+    console.log("delta value is: " + value);
     return (
       <div className="field">
         <label>Delta (%)</label>
@@ -43,6 +44,7 @@ Power = React.createClass({
   },
   render() {
     var value = this.state.value;
+    console.log("power value is: " + value);
     return (
       <div className="field">
         <label>Power (%)</label>
@@ -71,6 +73,7 @@ Coverage = React.createClass({
   },
   render() {
     var value = this.state.value;
+    console.log("coverage value is: " + value);
     return (
       <div className="field">
         <label>Coverage (%)</label>

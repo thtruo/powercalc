@@ -33,6 +33,8 @@ Metric = React.createClass({
   },
 
   render() {
+    var value = this.state.value;
+    console.log("coverage value is: " + value);
     return (
       <div className="field">
         <label>Market</label>
