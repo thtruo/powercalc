@@ -8,9 +8,6 @@ body > .grid {
 .column {
   margin-top: 20px;
 }
-.image {
-  margin-top: -100px;
-}
 .column {
   max-width: 450px;
 }
