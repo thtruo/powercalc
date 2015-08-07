@@ -33,6 +33,14 @@ if (DataTable.find().count() === 0) {
   });
   DataTable.insert({
     "market": "EN-US",
+    "metric": "ArPageViewsPerUser",
+    "average": 3.855664898,
+    "observedN": 12412192,
+    "stdDev": 17.84703366,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
     "metric": "ArWholePageClicksPerUser",
     "average": 1.26038487,
     "observedN": 12412192,
@@ -45,6 +53,54 @@ if (DataTable.find().count() === 0) {
     "average": 1.362620881,
     "observedN": 12412192,
     "stdDev": 9.346895613,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "GaWholePageClicksPerUser",
+    "average": 1.028375004,
+    "observedN": 12412192,
+    "stdDev": 5.899255535,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "NumVisits",
+    "average": 8.487081331,
+    "observedN": 12412192,
+    "stdDev": 18.05028266,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "PageViewsPerUser",
+    "average": 25.16692789,
+    "observedN": 12412192,
+    "stdDev": 82.30644997,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "QCNT",
+    "average": 0,
+    "observedN": 12412192,
+    "stdDev": 0,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "SearchTransfersPerUser",
+    "average": 5.011302516,
+    "observedN": 12412192,
+    "stdDev": 24.28404963,
+    "week": 1
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "WholePageClicksPerUser",
+    "average": 14.91258748,
+    "observedN": 12412192,
+    "stdDev": 61.35656277,
     "week": 1
   });
   DataTable.insert({
