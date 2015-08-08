@@ -25,18 +25,19 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - ~~Read and display data~~
 - Compute output
 - Write UI for output
-- Form validation
-
-
-##Later
+- Enable selection of multiple markets and metrics
 - Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
+- Form validation (percentages are treated as so, keep strings separate from numbers)
 
 
 ##Feedback
 - Use (%) for Delta/Power/Coverage - more intuitive for users according to analyst
     - TODO: (idea) client-side validation to ensure typed input is in right format  
 - Where to link after (let's get feedback from MSN after this is complete)
-- "Powered by ExP" looks like a button. Have a subtle font color and no background
+- ~~"Powered by ExP" looks like a button. Have a subtle font color and no background~~
+- Change "Coverage" text
+- Hide Power as an option - let it be gloabl for now (require a settings)
+- Export to xls 
 
 -------------------------------------------------------------------------------
 
