@@ -13,6 +13,12 @@ App = React.createClass({
     }
   },
 
+  getInitialState() {
+    return {
+      output: "test"
+    };
+  },
+
   handleSubmit(event) {
     event.preventDefault();
     console.log("Clicked CalculateButton!");
@@ -44,7 +50,7 @@ App = React.createClass({
 
   render() {
     return (
-      <form className="ui large form" onSubmit={this.handleSubmit}>
+      <form ref="form" className="ui large form" onSubmit={this.handleSubmit}>
         <div className="ui stacked segment">
           {this.renderMarket()}
           {this.renderMetric()}

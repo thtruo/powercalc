@@ -19,11 +19,14 @@ Market = React.createClass({
   },
 
   getInitialState: function() {
-    return {value: 'EN-US'};
+    return {
+      value: 'EN-US'
+    };
   },
 
   handleChange: function(event) {
     this.setState({value: event.target.value});
+    console.log("market value state changed to: " + event.target.value);
   },
 
   renderFormSelects() {
@@ -39,7 +42,7 @@ Market = React.createClass({
     return (
       <div className="field">
         <label>Market</label>
-        <select name="markets" className="ui selection dropdown" multiple="" id="multi-select">
+        <select name="markets" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.handleChange}>
           <option value="">Select your markets</option>
           {this.renderFormSelects()}
         </select>

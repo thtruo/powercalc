@@ -18,11 +18,14 @@ Metric = React.createClass({
     }
   },
   getInitialState: function() {
-    return {value: 'NumVisits'};
+    return {
+      value: 'NumVisits'
+    };
   },
 
   handleChange: function(event) {
     this.setState({value: event.target.value});
+    console.log("metric value state changed to: " + event.target.value);
   },
 
   renderFormSelects() {
@@ -34,11 +37,11 @@ Metric = React.createClass({
 
   render() {
     var value = this.state.value;
-    console.log("coverage value is: " + value);
+    console.log("metric value is: " + value);
     return (
       <div className="field">
         <label>Metric</label>
-        <select name="metrics" className="ui selection dropdown" multiple="" id="multi-select">
+        <select name="metrics" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.handleChange}>
           <option value="">Select your metrics</option>
           {this.renderFormSelects()}
         </select>
