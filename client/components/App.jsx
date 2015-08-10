@@ -15,33 +15,66 @@ App = React.createClass({
 
   getInitialState() {
     return {
-      output: "test"
+      market: "EN-US",
+      metric: "NumVisits",
+      power: "95",
+      coverage: "100",
+      delta: "1"
     };
   },
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("Clicked CalculateButton!");
+    var appState = this.state;
+    console.log("\nCLICKED CalculateButton!\n");
+    for (var k in appState) {
+      console.log("appState." + k + " is: " + appState[k]);
+    }
+  },
+
+  handleMarketChange: function(event) {
+    this.setState({market: event.target.value});
+    console.log("[App] MARKET => " + event.target.value);
+  },
+
+  handleMetricChange: function(event) {
+    this.setState({metric: event.target.value});
+    console.log("[App] METRIC => " + event.target.value);
+  },
+
+  handleDeltaChange: function(event) {
+    this.setState({delta: event.target.value});
+    console.log("[App] DELTA => " + event.target.value);
+  },
+
+  handleCoverageChange: function(event) {
+    this.setState({coverage: event.target.value});
+    console.log("[App] COVERAGE => " + event.target.value);
+  },
+
+  handlePowerChange: function(event) {
+    this.setState({power: event.target.value});
+    console.log("[App] POWER => " + event.target.value);
   },
 
   renderMarket() {
-    return <Market/>;
+    return <Market onChangeHandler={this.handleMarketChange} />;
   },
 
   renderMetric() {
-    return <Metric />;
+    return <Metric onChangeHandler={this.handleMetricChange} />;
   },
 
   renderDelta() {
-    return <Delta />;
+    return <Delta onChangeHandler={this.handleDeltaChange} defaultValue={this.state.delta} />;
   },
 
   renderPower() {
-    return <Power />;
+    return <Power onChangeHandler={this.handlePowerChange} defaultValue={this.state.power} />;
   },
 
   renderCoverage() {
-    return <Coverage />;
+    return <Coverage onChangeHandler={this.handleCoverageChange} defaultValue={this.state.coverage} />;
   },
 
   renderCalculateButton() {

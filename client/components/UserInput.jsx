@@ -7,15 +7,11 @@
 
 /* Delta component represents the power form field in the calculator app */
 Delta = React.createClass({
-  getInitialState: function() {
-    return {value: 1};
-  },
-  handleChange: function(event) {
-    this.setState({value: event.target.value});
+  propTypes: {
+    onChangeHandler: React.PropTypes.func.isRequired,
+    defaultValue: React.PropTypes.string.isRequired
   },
   render() {
-    var value = this.state.value;
-    console.log("delta value is: " + value);
     return (
       <div className="field">
         <label>Delta</label>
@@ -23,9 +19,9 @@ Delta = React.createClass({
           <input
             type="text"
             name="delta"
-            value={value}
+            value={this.props.defaultValue}
             placeholder="We recommend 1%"
-            onChange={this.handleChange} />
+            onChange={this.props.onChangeHandler} />
           <div className="ui label">%</div>
         </div>
       </div>
@@ -35,15 +31,11 @@ Delta = React.createClass({
 
 /* Power component represents the power form field in the calculator app */
 Power = React.createClass({
-  getInitialState: function() {
-    return {value: 95};
-  },
-  handleChange: function(event) {
-    this.setState({value: event.target.value});
+  propTypes: {
+    onChangeHandler: React.PropTypes.func.isRequired,
+    defaultValue: React.PropTypes.string.isRequired
   },
   render() {
-    var value = this.state.value;
-    console.log("power value is: " + value);
     return (
       <div className="field">
         <label>Power</label>
@@ -51,9 +43,9 @@ Power = React.createClass({
           <input
             type="text"
             name="power"
-            value={value}
+            value={this.props.defaultValue}
             placeholder="We recommend 95%"
-            onChange={this.handleChange} />
+            onChange={this.props.onChangeHandler} />
           <div className="ui label">%</div>
         </div>
       </div>
@@ -63,15 +55,11 @@ Power = React.createClass({
 
 /* Coverage component represents the power form field in the calculator app */
 Coverage = React.createClass({
-  getInitialState: function() {
-    return {value: 100};
-  },
-  handleChange: function(event) {
-    this.setState({value: event.target.value});
+  propTypes: {
+    onChangeHandler: React.PropTypes.func.isRequired,
+    defaultValue: React.PropTypes.string.isRequired
   },
   render() {
-    var value = this.state.value;
-    console.log("metric value is: " + value);
     return (
       <div className="field">
         <label>Coverage</label>
@@ -79,9 +67,9 @@ Coverage = React.createClass({
           <input
             type="text"
             name="coverage"
-            value={value}
-            placeholder="We recommend 100%"
-            onChange={this.handleChange} />
+            value={this.props.defaultValue}
+            placeholder="What % of users are affected by your change?"
+            onChange={this.props.onChangeHandler} />
           <div className="ui label">%</div>
         </div>
       </div>

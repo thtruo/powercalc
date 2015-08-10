@@ -5,6 +5,10 @@
 Market = React.createClass({
   mixins: [ReactMeteorData],
 
+  propTypes: {
+    onChangeHandler: React.PropTypes.func.isRequired
+  },
+
   // Loads items onto this.data.dataTableMarkets from the DataTable collection
   getMeteorData() {
     var distinctMarkets = _.uniq(DataTable.find({}, {
@@ -18,17 +22,6 @@ Market = React.createClass({
     }
   },
 
-  getInitialState: function() {
-    return {
-      value: 'EN-US'
-    };
-  },
-
-  handleChange: function(event) {
-    this.setState({value: event.target.value});
-    console.log("market value state changed to: " + event.target.value);
-  },
-
   renderFormSelects() {
     // Get tasks from this.data.dataTableMarkets
     return this.data.dataTableMarkets.map((mkt, key) => {
@@ -37,12 +30,10 @@ Market = React.createClass({
   },
 
   render() {
-    var value = this.state.value;
-    console.log("market value is: " + value);
     return (
       <div className="field">
         <label>Market</label>
-        <select name="markets" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.handleChange}>
+        <select name="markets" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.props.onChangeHandler} >
           <option value="">Select your markets</option>
           {this.renderFormSelects()}
         </select>
