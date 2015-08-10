@@ -9,7 +9,8 @@ App = React.createClass({
   // Loads items onto this.data.dataTable from the DataTable collection
   getMeteorData() {
     return {
-      dataTable: DataTable.find({}).fetch()
+      dataTable: DataTable.find({}).fetch(),
+      dataTableCount: DataTable.find({}).count()
     }
   },
 
@@ -23,6 +24,20 @@ App = React.createClass({
     };
   },
 
+  getParameter() {
+    // Assumption: there is a unique entry for each market/metric pair
+    var result = _.findWhere(this.data.dataTable, {
+      market: this.state.market,
+      metric: this.state.metric
+    });
+
+    for (var k in result) {
+      console.log("result[" + k + "] is " + result[k]);
+    }
+
+    return result;
+  },
+
   handleSubmit(event) {
     event.preventDefault();
     var appState = this.state;
@@ -30,6 +45,15 @@ App = React.createClass({
     for (var k in appState) {
       console.log("appState." + k + " is: " + appState[k]);
     }
+
+    // Compute the required N based on form inputs
+    var param = this.getParameter();
+
+    // TODO: define norminv(P, mu, sigma) : inverse of the normal cdf
+    var chunkA = 2 * Math.pow(this.state.stdDev / (this.state.average * this.state.delta * 0.01), 2);
+    var chunkB = Math.pow(1.96 - norminv(1 - this.state.power, 0, 1), 2);
+    console.log("\nOUTPUT: " + result + "\n");
+
   },
 
   handleMarketChange: function(event) {

@@ -33,14 +33,6 @@ if (DataTable.find().count() === 0) {
   });
   DataTable.insert({
     "market": "EN-US",
-    "metric": "ArPageViewsPerUser",
-    "average": 3.855664898,
-    "observedN": 12412192,
-    "stdDev": 17.84703366,
-    "week": 1
-  });
-  DataTable.insert({
-    "market": "EN-US",
     "metric": "ArWholePageClicksPerUser",
     "average": 1.26038487,
     "observedN": 12412192,
