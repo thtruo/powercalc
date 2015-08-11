@@ -119,4 +119,29 @@ if (DataTable.find().count() === 0) {
     "stdDev": 14.12798132,
     "week": 4
   });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "NumVisits",
+    "average": 7.650592551,
+    "observedN": 10453535,
+    "stdDev": 14.93836225,
+    "week": 2
+  });
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "NumVisits",
+    "average": 6.549033172,
+    "observedN": 8111264,
+    "stdDev": 11.24740766,
+    "week": 3
+  };
+  DataTable.insert({
+    "market": "EN-US",
+    "metric": "NumVisits",
+    "average": 4.864337429,
+    "observedN": 5434454,
+    "stdDev": 6.733814515,
+    "week": 4
+  }
+  );
 }
