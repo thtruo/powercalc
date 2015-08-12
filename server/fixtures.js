@@ -134,7 +134,7 @@ if (DataTable.find().count() === 0) {
     "observedN": 8111264,
     "stdDev": 11.24740766,
     "week": 3
-  };
+  });
   DataTable.insert({
     "market": "EN-US",
     "metric": "NumVisits",
@@ -142,6 +142,5 @@ if (DataTable.find().count() === 0) {
     "observedN": 5434454,
     "stdDev": 6.733814515,
     "week": 4
-  }
-  );
+  });
 }
