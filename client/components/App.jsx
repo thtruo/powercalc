@@ -30,13 +30,6 @@ App = React.createClass({
       market: this.state.market,
       metric: this.state.metric
     });
-    // console.log("RESULTS LENGTH: " + results.length);
-    // console.log("RESULTS LENGTH = 4: " + results.length === 4);
-    // for (var k in results) {
-    //   for (var u in results[k]) {
-    //     console.log("--results[" + u + "] is " + results[k][u]);
-    //   }
-    // }
 
     // Ensure results are sorted in increasing order based on week
     results.sort(function(a, b) {
@@ -62,6 +55,8 @@ App = React.createClass({
     var delta = Number(this.state.delta) * 0.01;
     var power = Number(this.state.power) * 0.01;
     var coverage = Number(this.state.coverage) * 0.01;
+    var market = param.market;
+    var metric = param.metric;
 
     console.log("   WEEK: " + week);
     console.log("   observedN: " + observedN);
@@ -70,13 +65,46 @@ App = React.createClass({
     console.log("   delta: " + delta);
     console.log("   coverage: " + coverage);
     console.log("   power: " + power);
-    console.log("   chunkA: " + chunkA);
+    console.log("   market: " + market);
+    console.log("   metric: " + metric);
 
     // TODO: define norminv(p, mu, sigma) : inverse of the normal cdf
 
     var chunkA = 2 * Math.pow(sigma / (delta * average), 2);
+    var placeholderVal = chunkA / observedN * 0.1;
+    // var chunkB = Math.pow(1.96 - norminv(1 - power, 0, 1), 2);
 
     console.log("\n   OUTPUT: chunkA " + chunkA + "\n");
+    console.log("\n   OUTPUT: placeholderVal % " + Math.floor(placeholderVal * 100) + "\n");
+    // console.log("\nOUTPUT: chunkB " + chunkB + "\n");
+    return {
+      requiredN: 500000,
+      allocatedTrafficPercentage: 0.15,
+      week: week,
+      market: market,
+      metric: metric
+    }
+
+  },
+
+  computeOutput() {
+    /* Compute the required N based on form inputs per week */
+    var params = this.getParameters();
+    var entries = [];
+    for (var i = 0; i < params.length; i++) {
+      console.log("\n" + " -ENTRY (week " + i + ") " + "\n");
+      entries.push(this.computeOutputEntry(params[i]));
+      console.log("\n");
+    };
+    return entries;
+  },
+
+  /* Implementation of the Inverse Cumulative Standard Normal Distribution
+   * Function.
+   * See http://home.online.no/~pjacklam/notes/invnorm/impl/misra/normsinv.html
+   */
+  norminv(p, mu, sigma) {
+
   },
 
   handleSubmit(event) {
@@ -84,15 +112,7 @@ App = React.createClass({
     var appState = this.state;
     console.log("\n--CLICKED CalculateButton!--\n");
 
-    /* Compute the required N based on form inputs per week */
-    var params = this.getParameters();
-
-    for (var i = 0; i < params.length; i++) {
-      console.log("\n" + " -ENTRY (week " + i + ") " + "\n");
-      this.computeOutputEntry(params[i]);
-      console.log("\n");
-    };
-
+    this.computeOutput();
   },
 
   handleMarketChange: function(event) {
@@ -144,19 +164,30 @@ App = React.createClass({
     return <CalculateButton />;
   },
 
+  renderOutput() {
+    return <OutputTable entries={this.computeOutput()} />;
+  },
+
   render() {
     return (
-      <form ref="form" className="ui large form" onSubmit={this.handleSubmit}>
-        <div className="ui stacked segment">
-          {this.renderMarket()}
-          {this.renderMetric()}
-          {this.renderDelta()}
-          {this.renderPower()}
-          {this.renderCoverage()}
-          {this.renderCalculateButton()}
-        </div>
-        <div className="ui error message"></div>
-      </form>
+      <div className="ui container">
+        <form ref="form" className="ui large form" onSubmit={this.handleSubmit}>
+          <div className="ui stacked segment">
+            {this.renderMarket()}
+            {this.renderMetric()}
+            {this.renderDelta()}
+            {this.renderPower()}
+            {this.renderCoverage()}
+            {this.renderCalculateButton()}
+          </div>
+          <div className="ui error message"></div>
+        </form>
+
+        <div className="ui horizontal divider"><h4>Results</h4></div>
+
+        <div className="ui large">{this.renderOutput()}</div>
+
+      </div>
     );
   }
 });

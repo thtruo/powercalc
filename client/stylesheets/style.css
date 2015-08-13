@@ -1,16 +1,26 @@
 /* CSS declarations go here */
 body {
-  background-color: #DADADA;
+  /*background-color: #DADADA;*/
 }
 body > .grid {
-  height: 100%;
+  /*height: 100%;*/
 }
 .column {
   margin-top: 20px;
 }
-.column {
+/*.column {
   max-width: 450px;
-}
+}*/
 .field label {
   text-align: left;
+}
+.form {
+  margin-bottom: 20px;
+}
+.output-table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#render-target {
+  margin-bottom: 50px;
 }
