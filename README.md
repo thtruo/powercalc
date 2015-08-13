@@ -42,6 +42,11 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - Change "Coverage" text
 - Hide Power as an option - let it be gloabl for now (require a settings)
 - Export to xls 
+- Menu - one at a time - calculate by MSN Prime, DHP, NTP
+- Where to put data? Expectation is that data gets updated on weekly basis
+    + Cosmos
+    + db
+    + local storage
 
 -------------------------------------------------------------------------------
 
