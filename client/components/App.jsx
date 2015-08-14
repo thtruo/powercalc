@@ -78,7 +78,7 @@ App = React.createClass({
     console.log("\n   OUTPUT: placeholderVal % " + Math.floor(placeholderVal * 100) + "\n");
     // console.log("\nOUTPUT: chunkB " + chunkB + "\n");
     return {
-      requiredN: 500000,
+      requiredN: Math.floor(chunkA),
       allocatedTrafficPercentage: 0.15,
       week: week,
       market: market,
@@ -109,7 +109,6 @@ App = React.createClass({
 
   handleSubmit(event) {
     event.preventDefault();
-    var appState = this.state;
     console.log("\n--CLICKED CalculateButton!--\n");
 
     this.computeOutput();
