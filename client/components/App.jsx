@@ -58,6 +58,11 @@ App = React.createClass({
     var market = param.market;
     var metric = param.metric;
 
+    var chunkA = 2 * Math.pow(sigma / (delta * average), 2);
+    var chunkB = Math.pow(1.96 - NORMSINV(1 - power), 2);
+    var requiredN = chunkA * chunkB / coverage;
+    var requiredPercentage = requiredN / observedN * 0.1;
+
     console.log("   WEEK: " + week);
     console.log("   observedN: " + observedN);
     console.log("   sigma: " + sigma);
@@ -67,19 +72,12 @@ App = React.createClass({
     console.log("   power: " + power);
     console.log("   market: " + market);
     console.log("   metric: " + metric);
+    console.log("\n   OUTPUT: requiredN  = " + Math.round(requiredN) + "\n");
+    console.log("\n   OUTPUT: required % = " + requiredPercentage * 100 + " %\n");
 
-    // TODO: define norminv(p, mu, sigma) : inverse of the normal cdf
-
-    var chunkA = 2 * Math.pow(sigma / (delta * average), 2);
-    var placeholderVal = chunkA / observedN * 0.1;
-    // var chunkB = Math.pow(1.96 - norminv(1 - power, 0, 1), 2);
-
-    console.log("\n   OUTPUT: chunkA " + chunkA + "\n");
-    console.log("\n   OUTPUT: placeholderVal % " + Math.floor(placeholderVal * 100) + "\n");
-    // console.log("\nOUTPUT: chunkB " + chunkB + "\n");
     return {
-      requiredN: Math.floor(chunkA),
-      allocatedTrafficPercentage: 0.15,
+      requiredN: requiredN,
+      allocatedTrafficPercentage: requiredPercentage,
       week: week,
       market: market,
       metric: metric
@@ -97,14 +95,6 @@ App = React.createClass({
       console.log("\n");
     };
     return entries;
-  },
-
-  /* Implementation of the Inverse Cumulative Standard Normal Distribution
-   * Function.
-   * See http://home.online.no/~pjacklam/notes/invnorm/impl/misra/normsinv.html
-   */
-  norminv(p, mu, sigma) {
-
   },
 
   handleSubmit(event) {
