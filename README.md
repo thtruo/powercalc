@@ -54,3 +54,4 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - This is a [Meteor](http://meteor.com) app
 - We are using [Semantic UI](https://atmospherejs.com/semantic/ui)
 - Of course, we are using [React](https://facebook.github.io/react/index.html)
+- Using this implementation of the inverse of the [normal cumulative distribution function](http://home.online.no/~pjacklam/notes/invnorm/impl/misra/normsinv.html)
