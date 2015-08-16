@@ -24,19 +24,20 @@ This is a power calculator web app to compute the minimum required `N` (sample s
 - ~~TODO: move presentation to App.jsx~~
 - ~~Read and display data~~
 - ~~Compute output~~
-- Write UI for output
-    + Implement normiv to correctly compute
+- ~~Write UI for output~~
+    + ~~Implement normiv to correctly compute~~
+- Clicking calculate button shows result and loader
 - Enable selection of multiple markets and metrics
-    - Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
+    + Get [dropdown](http://semantic-ui.com/modules/dropdown.html#/usage) to behave 
 - Form validation (percentages are treated as so, keep strings separate from numbers)
-    - Refer to this [ux.stackexchange](http://ux.stackexchange.com/questions/29267/inputting-percentages-in-decimal-or-whole-number-form) and [form design](http://www.lukew.com/ff/entry.asp?1502) and [accessible forms](http://websemantics.co.uk/tutorials/accessible_forms/) for dealing with input
-    - Decision: treat all input as strings and validate to make sure they behave as expected (numbers only and escaped strings). When doing computations, do the actual conversion to numbers then. Be careful for dealing with percentages in decimal form, i.e. 0.5% v 1%
-    - Nice validation comes in with [semantic ui's forms](http://semantic-ui.com/behaviors/form.html)
+    + Refer to this [ux.stackexchange](http://ux.stackexchange.com/questions/29267/inputting-percentages-in-decimal-or-whole-number-form) and [form design](http://www.lukew.com/ff/entry.asp?1502) and [accessible forms](http://websemantics.co.uk/tutorials/accessible_forms/) for dealing with input
+    + Decision: treat all input as strings and validate to make sure they behave as expected (numbers only and escaped strings). When doing computations, do the actual conversion to numbers then. Be careful for dealing with percentages in decimal form, i.e. 0.5% v 1%
+    + Nice validation comes in with [semantic ui's forms](http://semantic-ui.com/behaviors/form.html)
 
 
 ##Feedback
 - Use (%) for Delta/Power/Coverage - more intuitive for users according to analyst
-    - TODO: (idea) client-side validation to ensure typed input is in right format  
+    + TODO: (idea) client-side validation to ensure typed input is in right format  
 - Where to link after (let's get feedback from MSN after this is complete)
 - ~~"Powered by ExP" looks like a button. Have a subtle font color and no background~~
 - Change "Coverage" text
