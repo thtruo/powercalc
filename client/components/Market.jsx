@@ -22,6 +22,14 @@ Market = React.createClass({
     }
   },
 
+  componentDidMount() {
+    $('.ui.selection.dropdown').dropdown({});
+  },
+
+  componentDidUpdate() {
+      $('.ui.dropdown').dropdown('refresh');
+  },
+
   renderFormSelects() {
     // Get tasks from this.data.dataTableMarkets
     return this.data.dataTableMarkets.map((mkt, key) => {
@@ -33,7 +41,7 @@ Market = React.createClass({
     return (
       <div className="field">
         <label>Market</label>
-        <select name="markets" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.props.onChangeHandler} >
+        <select name="markets" className="ui selection dropdown" multiple={true} id="multi-select" onChange={this.props.onChangeHandler} >
           <option value="">Select your markets</option>
           {this.renderFormSelects()}
         </select>

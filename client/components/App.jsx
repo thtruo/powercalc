@@ -160,17 +160,15 @@ App = React.createClass({
   render() {
     return (
       <div className="ui container">
-        <form ref="form" className="ui large form" onSubmit={this.handleSubmit}>
-          <div className="ui stacked segment">
-            {this.renderMarket()}
-            {this.renderMetric()}
-            {this.renderDelta()}
-            {this.renderPower()}
-            {this.renderCoverage()}
-            {this.renderCalculateButton()}
-          </div>
-          <div className="ui error message"></div>
-        </form>
+        <div className="ui form stacked segment">
+          {this.renderMarket()}
+          {this.renderMetric()}
+          {this.renderDelta()}
+          {this.renderPower()}
+          {this.renderCoverage()}
+          {this.renderCalculateButton()}
+        </div>
+
 
         <div className="ui horizontal divider"><h4>Results</h4></div>
 

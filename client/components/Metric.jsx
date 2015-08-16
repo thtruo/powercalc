@@ -22,6 +22,14 @@ Metric = React.createClass({
     }
   },
 
+  componentDidMount() {
+    $('.ui.selection.dropdown').dropdown({});
+  },
+
+  componentDidUpdate() {
+      $('.ui.dropdown').dropdown('refresh');
+  },
+
   renderFormSelects() {
     // Get tasks from this.data.dataTableMetrics
     return this.data.dataTableMetrics.map((metric, key) => {
@@ -33,7 +41,7 @@ Metric = React.createClass({
     return (
       <div className="field">
         <label>Metric</label>
-        <select name="metrics" className="ui selection dropdown" multiple="" id="multi-select" onChange={this.props.onChangeHandler}>
+        <select name="metrics" className="ui selection dropdown" multiple={true} id="multi-select" onChange={this.props.onChangeHandler}>
           <option value="">Select your metrics</option>
           {this.renderFormSelects()}
         </select>
