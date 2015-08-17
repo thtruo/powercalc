@@ -4,11 +4,12 @@
  */
 FormSelect = React.createClass({
   propTypes: {
-    value: React.PropTypes.string.isRequired
+    value: React.PropTypes.string.isRequired,
+    handleSelectHandler: React.PropTypes.func
   },
   render() {
     return (
-      <option value={this.props.value}>{this.props.value}</option>
+      <option value={this.props.value} onSubmit={this.props.handleSelectHandler}>{this.props.value}</option>
     );
   }
 });

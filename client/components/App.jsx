@@ -105,8 +105,14 @@ App = React.createClass({
   },
 
   handleMarketChange: function(event) {
-    this.setState({market: event.target.value});
     console.log("[App] MARKET => " + event.target.value);
+
+    // this.setState({market: event.target.value});
+
+  },
+
+  handleSelect: function(event) {
+    console.log("  [Select] => " + event.target.value);
   },
 
   handleMetricChange: function(event) {
@@ -130,7 +136,7 @@ App = React.createClass({
   },
 
   renderMarket() {
-    return <Market onChangeHandler={this.handleMarketChange} />;
+    return <Market onChangeHandler={this.handleMarketChange} onSelectHandler={this.handleSelect} />;
   },
 
   renderMetric() {
