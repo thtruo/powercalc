@@ -23,11 +23,19 @@ Metric = React.createClass({
   },
 
   componentDidMount() {
-    $('.ui.selection.dropdown').dropdown({});
+    $('.ui.selection.dropdown')
+      .dropdown({});
+      var selectElem = $("#multi-select-metrics");
+      selectElem.change(this.props.onChangeHandler);
+  },
+
+  componentWillUnmount() {
+    var selectElem = $("#multi-select-metrics");
+    selectElem.off('change');
   },
 
   componentDidUpdate() {
-      $('.ui.dropdown').dropdown('refresh');
+      $('.ui.dropdown').dropdown();
   },
 
   renderFormSelects() {
@@ -41,7 +49,7 @@ Metric = React.createClass({
     return (
       <div className="field">
         <label>Metric</label>
-        <select name="metrics" className="ui selection dropdown" multiple={true} id="multi-select" onChange={this.props.onChangeHandler}>
+        <select name="metrics" className="ui selection dropdown" multiple={true} id="multi-select-metrics" onChange={this.props.onChangeHandler}>
           <option value="">Select your metrics</option>
           {this.renderFormSelects()}
         </select>

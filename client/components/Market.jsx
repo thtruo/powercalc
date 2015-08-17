@@ -6,8 +6,7 @@ Market = React.createClass({
   mixins: [ReactMeteorData],
 
   propTypes: {
-    onChangeHandler: React.PropTypes.func.isRequired,
-    onHandleSelectHandler: React.PropTypes.func
+    onChangeHandler: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -29,42 +28,26 @@ Market = React.createClass({
     }
   },
 
-  /* Temporary event handler for componentDidMount() */
-  handleChangeEvent(event) {
-    event.preventDefault();
-    console.log("[App] MARKET => " + event.target.value);
-
-    var options = event.target.options;
-    var value = [];
-    for (var i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    for (var i = 0; i < value.length; i++) {
-      console.log("@value[" + i + "] = " + value[i]);
-    };
-  },
-
   componentDidMount() {
     $('.ui.selection.dropdown')
       .dropdown({});
-      var selectElem = $("#multi-select");
-      selectElem.change(this.handleChangeEvent);
+      var selectElem = $("#multi-select-markets");
+      selectElem.change(this.props.onChangeHandler);
   },
 
   componentWillUnmount() {
-    var selectElem = $("#multi-select");
+    var selectElem = $("#multi-select-markets");
     selectElem.off('change');
   },
 
   componentDidUpdate() {
       $('.ui.selection.dropdown').dropdown({});
-      var multipleValues = $('#multi-select option:selected').val() || [];
-      console.log("@multipleValues size " + multipleValues.length);
-      for (var i in multipleValues) {
-        console.log('@values: ' + multipleValues[i]);
-      }
+
+      // var multipleValues = $('#multi-select-markets option:selected').val() || [];
+      // console.log("@multipleValues size " + multipleValues.length);
+      // for (var i in multipleValues) {
+      //   console.log('@values: ' + multipleValues[i]);
+      // }
   },
 
   renderFormSelects() {
@@ -78,7 +61,7 @@ Market = React.createClass({
     return (
       <div className="field">
         <label>Market</label>
-        <select name="markets" className="ui selection dropdown" multiple={true} id="multi-select" onChange={this.props.onChangeHandler} >
+        <select name="markets" className="ui selection dropdown" multiple={true} id="multi-select-markets" onChange={this.props.onChangeHandler} >
           <option className="default text" value="">Select your markets</option>
           {this.renderFormSelects()}
         </select>

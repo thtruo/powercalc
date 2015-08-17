@@ -16,8 +16,8 @@ App = React.createClass({
 
   getInitialState() {
     return {
-      market: "EN-US",
-      metric: "NumVisits",
+      market: ["EN-US", "ZH-TW"],
+      metric: ["NumVisits", "ArWholePageClicksPerUser"],
       power: "95",
       coverage: "100",
       delta: "1"
@@ -26,10 +26,23 @@ App = React.createClass({
 
   getParameters() {
     // There are 4 entries for each market/metric pair based off week
-    var results = _.where(this.data.dataTable, {
-      market: this.state.market,
-      metric: this.state.metric
-    });
+    var results = [];
+    var selectedMarkets = this.state.market;
+    var selectedMetrics = this.state.metric;
+    for (var i = 0; i < selectedMarkets.length; i++) {
+      for (var j = 0; j < selectedMetrics.length; j++) {
+        var entries = _.where(this.data.dataTable, {
+          market: selectedMarkets[i],
+          metric: selectedMetrics[j]
+        });
+        console.log('entries.length (' + i + ', ' + j + "): "  + entries.length);
+        results = results.concat(entries);
+        console.log('results.length: (' + i + ', ' + j + "): "  + results.length);
+      };
+    };
+    console.log('final results.length: ' + results.length);
+
+
 
     // Ensure results are sorted in increasing order based on week
     results.sort(function(a, b) {
@@ -105,19 +118,40 @@ App = React.createClass({
   },
 
   handleMarketChange: function(event) {
-    console.log("[App] MARKET => " + event.target.value);
-
+    // console.log("HELLO [App] MARKET => " + event.target.value);
     // this.setState({market: event.target.value});
 
-  },
+    event.preventDefault();
+    console.log("HELLO [App] MARKET => " + event.target.value);
 
-  handleSelect: function(event) {
-    console.log("  [Select] => " + event.target.value);
+    var options = event.target.options;
+    var value = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    for (var i = 0; i < value.length; i++) {
+      console.log("@market_value[" + i + "] = " + value[i]);
+    };
+
   },
 
   handleMetricChange: function(event) {
-    this.setState({metric: event.target.value});
-    console.log("[App] METRIC => " + event.target.value);
+    event.preventDefault();
+
+    // this.setState({metric: event.target.value});
+    console.log("HELLO [App] METRIC => " + event.target.value);
+    var options = event.target.options;
+    var value = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    for (var i = 0; i < value.length; i++) {
+      console.log("@metric_value[" + i + "] = " + value[i]);
+    };
   },
 
   handleDeltaChange: function(event) {
@@ -136,7 +170,7 @@ App = React.createClass({
   },
 
   renderMarket() {
-    return <Market onChangeHandler={this.handleMarketChange} onSelectHandler={this.handleSelect} />;
+    return <Market onChangeHandler={this.handleMarketChange} />;
   },
 
   renderMetric() {
@@ -177,9 +211,9 @@ App = React.createClass({
 
 
         <div className="ui horizontal divider"><h4>Results</h4></div>
-
+        {/* */}
         <div className="ui large">{this.renderOutput()}</div>
-
+        {/* */}
       </div>
     );
   }
