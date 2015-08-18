@@ -4,7 +4,7 @@
 App = React.createClass({
 
   // This mixin makes the getMeteorData method work
-  mixins: [ReactMeteorData],
+  mixins: [ReactMeteorData, React.addons.LinkedStateMixin],
 
   // Loads items onto this.data.dataTable from the DataTable collection
   getMeteorData() {
@@ -117,25 +117,25 @@ App = React.createClass({
   },
 
   handleMarketChange: function(event) {
-    // this.setState({market: event.target.value});
 
     event.preventDefault();
-    console.log("\n HELLO [App] MARKET => " + event.target.value);
+    console.log("\n ---HELLO [App] MARKET => " + event.target.value);
 
     console.log(" @Previous market state => market.length: " + this.state.market.length);
     for (var i = 0; i < this.state.market.length; i++) {
       console.log("   @value[" + i + "] = " + this.state.market[i]);
-    };
-    console.log("\n");
+    }; console.log("\n");
 
     // Get list of all selected markets
     var options = event.target.options;
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
+        console.log("  *debug*  " + i + " " + options[i] + " is selected");
         value.push(options[i].value);
       }
       else { // prevents the exiting of an option to increase the size of this.state.market
+        console.log("  *debug*  " + i + " " + options[i] + " is removed");
         value = _.reject(value, function(elem) {
           return elem.selected;
         });
@@ -148,16 +148,22 @@ App = React.createClass({
     console.log("\n");
 
     // Update market list state based on multiple market selections
-    var updatedMarketState = this.state.market.concat(value);
-    console.log(" @updatedMarketState => market.length: " + updatedMarketState.length);
-    for (var i = 0; i < updatedMarketState.length; i++) {
-      console.log("   @uvalue[" + i + "] = " + this.state.market[i]);
+    // var newMarketState = this.state.market.concat(value);
+    var marketState = this.state.market;
+    var newMarketState = _.uniq(value); //_.uniq(marketState.concat(value));
+
+
+    console.log(" @newMarketState => market.length: " + newMarketState.length);
+    for (var i = 0; i < newMarketState.length; i++) {
+      console.log("   @newvalue[" + i + "] = " + newMarketState[i]);
     };
     console.log("\n");
 
-    this.setState({
-      market: updatedMarketState
-    });
+    if (marketState.length !== newMarketState.length) {
+      this.setState({
+        market: newMarketState
+      });
+    }
 
     console.log(" @After calling setState => market.length: " + this.state.market.length);
     for (var i = 0; i < this.state.market.length; i++) {
