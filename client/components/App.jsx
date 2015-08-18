@@ -17,7 +17,7 @@ App = React.createClass({
   getInitialState() {
     return {
       market: [],
-      metric: ["NumVisits"],
+      metric: [],
       power: "95",
       coverage: "100",
       delta: "1"
@@ -85,8 +85,7 @@ App = React.createClass({
     // console.log("   power: " + power);
     console.log("   market: " + market);
     console.log("   metric: " + metric);
-    // console.log("\n   OUTPUT: requiredN  = " + Math.round(requiredN) + "\n");
-    console.log("   OUTPUT: required % = " + requiredPercentage * 100 + " %\n");
+    console.log("\n   OUTPUT: (requiredN, required %) = " + Math.round(requiredN) + ", " + requiredPercentage * 100 + "%)\n");
 
     return {
       requiredN: requiredN,
@@ -117,10 +116,9 @@ App = React.createClass({
   },
 
   handleMarketChange: function(event) {
-
     event.preventDefault();
-    console.log("\n ---HELLO [App] MARKET => " + event.target.value);
 
+    console.log("\n ---[App] MARKET => detected change, see values ---\n");
     console.log(" @Previous market state => market.length: " + this.state.market.length);
     for (var i = 0; i < this.state.market.length; i++) {
       console.log("   @value[" + i + "] = " + this.state.market[i]);
@@ -131,33 +129,13 @@ App = React.createClass({
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
-        console.log("  *debug*  " + i + " " + options[i] + " is selected");
         value.push(options[i].value);
       }
-      else { // prevents the exiting of an option to increase the size of this.state.market
-        console.log("  *debug*  " + i + " " + options[i] + " is removed");
-        value = _.reject(value, function(elem) {
-          return elem.selected;
-        });
-      }
     }
-    console.log(" @Value[] after (de)selecting => value.length: " + value.length);
-    for (var i = 0; i < value.length; i++) {
-      console.log("   @value[" + i + "] = " + value[i]);
-    };
-    console.log("\n");
 
     // Update market list state based on multiple market selections
-    // var newMarketState = this.state.market.concat(value);
     var marketState = this.state.market;
-    var newMarketState = _.uniq(value); //_.uniq(marketState.concat(value));
-
-
-    console.log(" @newMarketState => market.length: " + newMarketState.length);
-    for (var i = 0; i < newMarketState.length; i++) {
-      console.log("   @newvalue[" + i + "] = " + newMarketState[i]);
-    };
-    console.log("\n");
+    var newMarketState = _.uniq(value);
 
     if (marketState.length !== newMarketState.length) {
       this.setState({
@@ -173,9 +151,14 @@ App = React.createClass({
 
   handleMetricChange: function(event) {
     event.preventDefault();
+    console.log("\n ---[App] METRIC => detected change, see values ---\n");
 
-    // this.setState({metric: event.target.value});
-    console.log("HELLO [App] METRIC => " + event.target.value);
+    console.log(" @Previous metric state => metric.length: " + this.state.metric.length);
+    for (var i = 0; i < this.state.metric.length; i++) {
+      console.log("   @value[" + i + "] = " + this.state.metric[i]);
+    }; console.log("\n");
+
+    // Get list of all selected metrics
     var options = event.target.options;
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
@@ -183,10 +166,21 @@ App = React.createClass({
         value.push(options[i].value);
       }
     }
-    for (var i = 0; i < value.length; i++) {
-      console.log("@metric_value[" + i + "] = " + value[i]);
-    };
 
+    // Update metric list state based on multiple metric selections
+    var metricState = this.state.metric;
+    var newMetricState = _.uniq(value);
+
+    if (metricState.length !== newMetricState.length) {
+      this.setState({
+        metric: newMetricState
+      });
+    }
+
+    console.log(" @After calling setState => metric.length: " + this.state.metric.length);
+    for (var i = 0; i < this.state.metric.length; i++) {
+      console.log("   @value[" + i + "] = " + this.state.metric[i]);
+    }; console.log("\n");
   },
 
   handleDeltaChange: function(event) {

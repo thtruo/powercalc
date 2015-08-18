@@ -38,11 +38,9 @@ Market = React.createClass({
     var selectElem = $("#multi-select-markets");
     selectElem.off('change', this.props.onChangeHandler);
   },
-  // componentWillMount() {
-  //   this.state.data = data;
-  // },
+
   componentDidUpdate() {
-    // $('.ui.selection.dropdown').dropdown({});
+    $('.ui.selection.dropdown').dropdown({});
   },
 
   renderFormSelects() {
