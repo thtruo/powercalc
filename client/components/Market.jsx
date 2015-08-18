@@ -29,10 +29,9 @@ Market = React.createClass({
   },
 
   componentDidMount() {
-    $('.ui.selection.dropdown')
-      .dropdown({});
-      var selectElem = $("#multi-select-markets");
-      selectElem.change(this.props.onChangeHandler);
+    $('.ui.selection.dropdown').dropdown({});
+    var selectElem = $("#multi-select-markets");
+    selectElem.change(this.props.onChangeHandler);
   },
 
   componentWillUnmount() {
@@ -41,7 +40,7 @@ Market = React.createClass({
   },
 
   componentDidUpdate() {
-      $('.ui.selection.dropdown').dropdown({});
+    $('.ui.selection.dropdown').dropdown({});
 
       // var multipleValues = $('#multi-select-markets option:selected').val() || [];
       // console.log("@multipleValues size " + multipleValues.length);

@@ -9,7 +9,7 @@ FormSelect = React.createClass({
   },
   render() {
     return (
-      <option value={this.props.value} onSubmit={this.props.handleSelectHandler}>{this.props.value}</option>
+      <option value={this.props.value}>{this.props.value}</option>
     );
   }
 });

@@ -16,8 +16,8 @@ App = React.createClass({
 
   getInitialState() {
     return {
-      market: ["EN-US", "ZH-TW"],
-      metric: ["NumVisits", "ArWholePageClicksPerUser"],
+      market: [],
+      metric: ["NumVisits"],
       power: "95",
       coverage: "100",
       delta: "1"
@@ -77,16 +77,16 @@ App = React.createClass({
     var requiredPercentage = requiredN / observedN * 0.1;
 
     console.log("   WEEK: " + week);
-    console.log("   observedN: " + observedN);
-    console.log("   sigma: " + sigma);
-    console.log("   average: " + average);
-    console.log("   delta: " + delta);
-    console.log("   coverage: " + coverage);
-    console.log("   power: " + power);
+    // console.log("   observedN: " + observedN);
+    // console.log("   sigma: " + sigma);
+    // console.log("   average: " + average);
+    // console.log("   delta: " + delta);
+    // console.log("   coverage: " + coverage);
+    // console.log("   power: " + power);
     console.log("   market: " + market);
     console.log("   metric: " + metric);
-    console.log("\n   OUTPUT: requiredN  = " + Math.round(requiredN) + "\n");
-    console.log("\n   OUTPUT: required % = " + requiredPercentage * 100 + " %\n");
+    // console.log("\n   OUTPUT: requiredN  = " + Math.round(requiredN) + "\n");
+    console.log("   OUTPUT: required % = " + requiredPercentage * 100 + " %\n");
 
     return {
       requiredN: requiredN,
@@ -103,38 +103,66 @@ App = React.createClass({
     var params = this.getParameters();
     var entries = [];
     for (var i = 0; i < params.length; i++) {
-      console.log("\n" + " -ENTRY (week " + i + ") " + "\n");
+      console.log("\n" + " -ENTRY (week " + i + ") " + "\n\n");
       entries.push(this.computeOutputEntry(params[i]));
-      console.log("\n");
     };
     return entries;
   },
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("\n--CLICKED CalculateButton!--\n");
+    console.log("\n@@@CLICKED CalculateButton!@@@\n");
 
     this.computeOutput();
   },
 
   handleMarketChange: function(event) {
-    // console.log("HELLO [App] MARKET => " + event.target.value);
     // this.setState({market: event.target.value});
 
     event.preventDefault();
-    console.log("HELLO [App] MARKET => " + event.target.value);
+    console.log("\n HELLO [App] MARKET => " + event.target.value);
 
+    console.log(" @Previous market state => market.length: " + this.state.market.length);
+    for (var i = 0; i < this.state.market.length; i++) {
+      console.log("   @value[" + i + "] = " + this.state.market[i]);
+    };
+    console.log("\n");
+
+    // Get list of all selected markets
     var options = event.target.options;
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
         value.push(options[i].value);
       }
+      else { // prevents the exiting of an option to increase the size of this.state.market
+        value = _.reject(value, function(elem) {
+          return elem.selected;
+        });
+      }
     }
+    console.log(" @Value[] after (de)selecting => value.length: " + value.length);
     for (var i = 0; i < value.length; i++) {
-      console.log("@market_value[" + i + "] = " + value[i]);
+      console.log("   @value[" + i + "] = " + value[i]);
     };
+    console.log("\n");
 
+    // Update market list state based on multiple market selections
+    var updatedMarketState = this.state.market.concat(value);
+    console.log(" @updatedMarketState => market.length: " + updatedMarketState.length);
+    for (var i = 0; i < updatedMarketState.length; i++) {
+      console.log("   @uvalue[" + i + "] = " + this.state.market[i]);
+    };
+    console.log("\n");
+
+    this.setState({
+      market: updatedMarketState
+    });
+
+    console.log(" @After calling setState => market.length: " + this.state.market.length);
+    for (var i = 0; i < this.state.market.length; i++) {
+      console.log("   @value[" + i + "] = " + this.state.market[i]);
+    }; console.log("\n");
   },
 
   handleMetricChange: function(event) {
@@ -152,6 +180,7 @@ App = React.createClass({
     for (var i = 0; i < value.length; i++) {
       console.log("@metric_value[" + i + "] = " + value[i]);
     };
+
   },
 
   handleDeltaChange: function(event) {
@@ -211,9 +240,9 @@ App = React.createClass({
 
 
         <div className="ui horizontal divider"><h4>Results</h4></div>
-        {/* */}
+        {/*
         <div className="ui large">{this.renderOutput()}</div>
-        {/* */}
+         */}
       </div>
     );
   }
