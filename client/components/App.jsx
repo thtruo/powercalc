@@ -21,7 +21,8 @@ App = React.createClass({
       power: "95",
       coverage: "100",
       delta: "1"
-      // ,clickedCalculateButton: false
+      ,clickedCalculateButton: false
+      ,clickedAnotherCalculationButton: false
     };
   },
 
@@ -31,6 +32,7 @@ App = React.createClass({
     var weekEntries = [];
     var selectedMarkets = this.state.market;
     var selectedMetrics = this.state.metric;
+    console.log(' selectedMetrics.length = ' + selectedMetrics.length);
     for (var i = 0; i < selectedMarkets.length; i++) {
       for (var j = 0; j < selectedMetrics.length; j++) {
         var entries = _.where(this.data.dataTable, {
@@ -43,7 +45,7 @@ App = React.createClass({
       };
     };
     console.log('In App.getParameters()');
-    console.log('final weekEntries.length: ' + weekEntries.length);
+    console.log('  weekEntries.length: ' + weekEntries.length);
 
     // Ensure weekEntries are sorted in increasing week order
     weekEntries.sort(function(a, b) {
@@ -60,31 +62,31 @@ App = React.createClass({
 
   computeOutputEntry(param) {
     // Compute the required N based on form inputs
-    var week = Number(param.week);
-    var observedN = Number(param.observedN);
-    var sigma = Number(param.stdDev);
-    var average = Number(param.average);
-    var delta = Number(this.state.delta) * 0.01;
-    var power = Number(this.state.power) * 0.01;
-    var coverage = Number(this.state.coverage) * 0.01;
-    var market = param.market;
-    var metric = param.metric;
+    var week      = Number(param.week),
+        observedN = Number(param.observedN),
+        sigma     = Number(param.stdDev),
+        average   = Number(param.average),
+        delta     = Number(this.state.delta) * 0.01,
+        power     = Number(this.state.power) * 0.01,
+        coverage  = Number(this.state.coverage) * 0.01,
+        market    = param.market,
+        metric    = param.metric;
 
     var chunkA = 2 * Math.pow(sigma / (delta * average), 2);
     var chunkB = Math.pow(1.96 - NORMSINV(1 - power), 2);
     var requiredN = chunkA * chunkB / coverage;
     var requiredPercentage = requiredN / observedN * 0.1;
 
-    console.log("   WEEK: " + week);
+    console.log("   (WEEK, mkt, mtrc) = (" + week + ", " + market + ", " + metric + ")");
     // console.log("   observedN: " + observedN);
     // console.log("   sigma: " + sigma);
     // console.log("   average: " + average);
     // console.log("   delta: " + delta);
     // console.log("   coverage: " + coverage);
     // console.log("   power: " + power);
-    console.log("   market: " + market);
-    console.log("   metric: " + metric);
-    console.log("\n   OUTPUT: (requiredN, required %) = " + Math.round(requiredN) + ", " + requiredPercentage * 100 + "%)\n");
+    // console.log("   market: " + market);
+    // console.log("   metric: " + metric);
+    console.log("   OUTPUT: (requiredN, required %) = " + Math.round(requiredN) + ", " + requiredPercentage * 100 + "%)\n");
 
     return {
       requiredN: requiredN,
@@ -93,7 +95,6 @@ App = React.createClass({
       market: market,
       metric: metric
     }
-
   },
 
   computeOutput() {
@@ -101,7 +102,7 @@ App = React.createClass({
     var params = this.getParameters();
     var resultsEveryWeek = [];
     for (var i = 0; i < params.length; i++) {
-      console.log("\n" + " -ENTRY (week " + i + ") " + "\n\n");
+      console.log("\n\n" + " -ENTRY (week " + i + ")\n");
       resultsEveryWeek.push(this.computeOutputEntry(params[i]));
     };
     return resultsEveryWeek;
@@ -110,10 +111,25 @@ App = React.createClass({
   handleClickCalculateButton(event) {
     event.preventDefault();
     console.log("\n@@@CLICKED CalculateButton!@@@\n");
-
-    // this.setState({clickedCalculateButton: true});
-    this.computeOutput();
+    this.setState({clickedCalculateButton: true});
     // this.renderOutput();
+    // console.log("^AFTER RENDEROUTPUT CALL in click button handler \n\n");
+  },
+
+  renderOutput() {
+    console.log("In App.renderOutput() ");
+    var testMarketState = this.state.market;
+    var testMetricState = this.state.metric;
+    console.log("   this.state.market length:" + testMarketState.length);
+    for (var i = 0; i < testMarketState.length; i++) {
+      console.log("     testMarketState[" + i + "] " + testMarketState[i]);
+    };
+    console.log("   this.state.metric length:" + testMetricState.length);
+    for (var i = 0; i < testMetricState.length; i++) {
+      console.log("     testMetricState[" + i + "] " + testMetricState[i]);
+    };
+    console.log("Right before returning OutputTable: this.computeOutput.length = " + this.computeOutput().length);
+    return <OutputTable entries={this.computeOutput()} markets={this.state.market} metrics={this.state.metric} />;
   },
 
   handleMarketChange: function(event) {
@@ -198,58 +214,39 @@ App = React.createClass({
     console.log("[App] POWER => " + event.target.value);
   },
 
-  renderMarket() {
-    return <Market onChangeHandler={this.handleMarketChange} />;
-  },
-
-  renderMetric() {
-    return <Metric onChangeHandler={this.handleMetricChange} />;
-  },
-
-  renderDelta() {
-    return <Delta onChangeHandler={this.handleDeltaChange} defaultValue={this.state.delta} />;
-  },
-
   renderPower() {
     return <Power onChangeHandler={this.handlePowerChange} defaultValue={this.state.power} />;
-  },
-
-  renderCoverage() {
-    return <Coverage onChangeHandler={this.handleCoverageChange} defaultValue={this.state.coverage} />;
   },
 
   renderCalculateButton() {
     return <CalculateButton onClickHandler={this.handleClickCalculateButton}/>;
   },
 
-  renderOutput() {
-    console.log("In App.renderOutput() ");
-    var test = this.state.market;
-    console.log("   this.state.market length:" + test.length);
-    for (var i = 0; i < test.length; i++) {
-      console.log("     test[" + i + "] " + test[i]);
-    };
-    return <OutputTable entries={this.computeOutput()} markets={this.state.market} metrics={this.state.metric} />;
-  },
-
   render() {
+    var output;
+    if (this.state.clickedCalculateButton) {
+      output = <OutputTable entries={this.computeOutput()} markets={this.state.market} metrics={this.state.metric} />;
+    }
     return (
       <div className="ui container">
         <div className="ui form stacked segment">
-          {this.renderMarket()}
-          {this.renderMetric()}
-          {this.renderDelta()}
+          <Market onChangeHandler={this.handleMarketChange} />
+          <Metric onChangeHandler={this.handleMetricChange} />
+          <Delta onChangeHandler={this.handleDeltaChange}
+                 defaultValue={this.state.delta} />
+          <Coverage onChangeHandler={this.handleCoverageChange}
+                    defaultValue={this.state.coverage} />
           {this.renderPower()}
-          {this.renderCoverage()}
           {this.renderCalculateButton()}
         </div>
 
-        {/* */}
         <div className="ui horizontal divider"><h4>Results</h4></div>
 
-        <div className="ui large">{this.renderOutput()}</div>
-        {/**/}
+        <div className="ui large">{output}</div>
+        {/*<div className="ui large">{this.renderOutput()}</div>
+        */}
       </div>
     );
+
   }
 });

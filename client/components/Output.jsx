@@ -24,15 +24,25 @@ OutputTable = React.createClass({
     console.log("In Output.renderOutputTableRow(): entries length = " + this.props.entries.length);
 
     // Render a row per metric
+    console.log(" In rendering row per metric: metrics length = " + this.props.metrics.length);
+    var rows = [];
     for (var j = 0; j < this.props.metrics.length; j++) {
-      console.log("   In loop row[" + j + "] = " + this.props.metrics[j]);
-      return <OutputTableRow key={j} entries={this.props.entries} metric={this.props.metrics[j]} />;
+      var m = this.props.metrics[j];
+      console.log("   In loop row[" + j + "] = " + m);
+      var row = <OutputTableRow key={j} entries={this.props.entries} metric={m} />;
+      rows = rows.concat(row);
     }
+    return rows.map((r, key) => {
+      return r;
+    });
 
     // return <OutputTableRow entries={this.props.entries} />;
   },
 
   render() {
+    console.log(" In Output.render(): entries length = " + this.props.entries.length);
+    console.log(" In Output.render(): markets length = " + this.props.markets.length);
+    console.log(" In Output.render(): metrics length = " + this.props.metrics.length);
     return (
       <table className="ui celled structured table output-table">
         {this.renderOutputTableHeader()}
@@ -76,8 +86,7 @@ OutputTableRow = React.createClass({
     console.log("In Row.renderCellForMetricName(): this.props.metric = " + this.props.metric);
 
     if (this.props.entries.length !== 0) {
-      // return <td className="single line">{this.props.metric}</td>;
-      return <td className="single line">{this.props.entries[0].metric}</td>;
+      return <td className="single line">{this.props.metric}</td>;
     }
   },
 
@@ -95,12 +104,13 @@ OutputTableRow = React.createClass({
 
     // Render power calculation results for all weeks for this row
     return entriesPerMetric.map((cellsPerWeek, key) => {
-      console.log("  Row[" + key + "]");
+
       var resultPair = [];
       var sampleSize = cellsPerWeek.requiredN.toFixed(0);
       var traffic = (cellsPerWeek.allocatedTrafficPercentage * 100.0).toFixed(0);
       resultPair.push(sampleSize);
       resultPair.push(traffic);
+      console.log("  Row[" + key + "]: (" + sampleSize + ", " + traffic +")");
       return resultPair.map((cell, key) => {
         return <TableCell key={key} value={cell} />;
       });
