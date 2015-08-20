@@ -20,14 +20,15 @@ App = React.createClass({
       metric: [],
       power: "95",
       coverage: "100",
-      delta: "1",
-      clickedCalculateButton: false
+      delta: "1"
+      // ,clickedCalculateButton: false
     };
   },
 
   getParameters() {
-    // There are 4 entries for each market/metric pair based off week
-    var results = [];
+    // There are 4 entries for each week of a given market/metric pair
+    // Function provides all entries for all market/metric selections
+    var weekEntries = [];
     var selectedMarkets = this.state.market;
     var selectedMetrics = this.state.metric;
     for (var i = 0; i < selectedMarkets.length; i++) {
@@ -37,27 +38,24 @@ App = React.createClass({
           metric: selectedMetrics[j]
         });
         console.log('entries.length (' + i + ', ' + j + "): "  + entries.length);
-        results = results.concat(entries);
-        console.log('results.length: (' + i + ', ' + j + "): "  + results.length);
+        weekEntries = weekEntries.concat(entries);
+        console.log('weekEntries.length: (' + i + ', ' + j + "): "  + weekEntries.length);
       };
     };
-    console.log('final results.length: ' + results.length);
+    console.log('In App.getParameters()');
+    console.log('final weekEntries.length: ' + weekEntries.length);
 
-
-
-    // Ensure results are sorted in increasing order based on week
-    results.sort(function(a, b) {
+    // Ensure weekEntries are sorted in increasing week order
+    weekEntries.sort(function(a, b) {
       if (Number(a.week) > Number(b.week)) {
         return 1;
       }
       if (Number(a.week) < Number(b.week)) {
         return -1;
       }
-      // a must be equal to b
       return 0;
     });
-
-    return results;
+    return weekEntries;
   },
 
   computeOutputEntry(param) {
@@ -99,21 +97,21 @@ App = React.createClass({
   },
 
   computeOutput() {
-    /* Compute the required N based on form inputs per week */
+    /* Compute the required N and traffic based on form inputs per week */
     var params = this.getParameters();
-    var entries = [];
+    var resultsEveryWeek = [];
     for (var i = 0; i < params.length; i++) {
       console.log("\n" + " -ENTRY (week " + i + ") " + "\n\n");
-      entries.push(this.computeOutputEntry(params[i]));
+      resultsEveryWeek.push(this.computeOutputEntry(params[i]));
     };
-    return entries;
+    return resultsEveryWeek;
   },
 
   handleClickCalculateButton(event) {
     event.preventDefault();
     console.log("\n@@@CLICKED CalculateButton!@@@\n");
 
-    this.setState({clickedCalculateButton: true});
+    // this.setState({clickedCalculateButton: true});
     this.computeOutput();
     // this.renderOutput();
   },
@@ -155,7 +153,6 @@ App = React.createClass({
   handleMetricChange: function(event) {
     event.preventDefault();
     console.log("\n ---[App] METRIC => detected change, see values ---\n");
-
     console.log(" @Previous metric state => metric.length: " + this.state.metric.length);
     for (var i = 0; i < this.state.metric.length; i++) {
       console.log("   @value[" + i + "] = " + this.state.metric[i]);
@@ -226,7 +223,13 @@ App = React.createClass({
   },
 
   renderOutput() {
-    return <OutputTable entries={this.computeOutput()} markets={this.state.markets} />;
+    console.log("In App.renderOutput() ");
+    var test = this.state.market;
+    console.log("   this.state.market length:" + test.length);
+    for (var i = 0; i < test.length; i++) {
+      console.log("     test[" + i + "] " + test[i]);
+    };
+    return <OutputTable entries={this.computeOutput()} markets={this.state.market} metrics={this.state.metric} />;
   },
 
   render() {
@@ -241,11 +244,11 @@ App = React.createClass({
           {this.renderCalculateButton()}
         </div>
 
-        {/*
+        {/* */}
         <div className="ui horizontal divider"><h4>Results</h4></div>
 
         <div className="ui large">{this.renderOutput()}</div>
-        */}
+        {/**/}
       </div>
     );
   }
