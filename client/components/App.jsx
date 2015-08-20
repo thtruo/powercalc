@@ -4,7 +4,7 @@
 App = React.createClass({
 
   // This mixin makes the getMeteorData method work
-  mixins: [ReactMeteorData, React.addons.LinkedStateMixin],
+  mixins: [ReactMeteorData],
 
   // Loads items onto this.data.dataTable from the DataTable collection
   getMeteorData() {
@@ -20,7 +20,8 @@ App = React.createClass({
       metric: [],
       power: "95",
       coverage: "100",
-      delta: "1"
+      delta: "1",
+      clickedCalculateButton: false
     };
   },
 
@@ -108,11 +109,13 @@ App = React.createClass({
     return entries;
   },
 
-  handleSubmit(event) {
+  handleClickCalculateButton(event) {
     event.preventDefault();
     console.log("\n@@@CLICKED CalculateButton!@@@\n");
 
+    this.setState({clickedCalculateButton: true});
     this.computeOutput();
+    // this.renderOutput();
   },
 
   handleMarketChange: function(event) {
@@ -219,11 +222,11 @@ App = React.createClass({
   },
 
   renderCalculateButton() {
-    return <CalculateButton />;
+    return <CalculateButton onClickHandler={this.handleClickCalculateButton}/>;
   },
 
   renderOutput() {
-    return <OutputTable entries={this.computeOutput()} />;
+    return <OutputTable entries={this.computeOutput()} markets={this.state.markets} />;
   },
 
   render() {
@@ -238,11 +241,11 @@ App = React.createClass({
           {this.renderCalculateButton()}
         </div>
 
-
-        <div className="ui horizontal divider"><h4>Results</h4></div>
         {/*
+        <div className="ui horizontal divider"><h4>Results</h4></div>
+
         <div className="ui large">{this.renderOutput()}</div>
-         */}
+        */}
       </div>
     );
   }

@@ -10,15 +10,43 @@
 
 OutputTable = React.createClass({
   propTypes: {
-    entries: React.PropTypes.array.isRequired // array of entry cells
+    entries: React.PropTypes.array.isRequired, // array of entry cells
+    markets: React.PropTypes.array.isRequired, // array of selected markets
+    metrics: React.PropTypes.array.isRequired  // array of selected metrics
   },
   renderOutputTableHeader() {
     return <OutputTableHeader />;
   },
   renderOutputTableRow() {
+    // console.log("See market prop: " + this.props.markets.length);
+
+    // Separate row per metric selection
+    // var selectedMetrics = this.props.metrics; console.log("test selectedMetrics: " + selectedMetrics.length);
+
+    // for (var j = 0; j < selectedMetrics.length; j++) {
+    //   var entriesForMetric = _.where(this.props.entries, {
+    //     // market: selectedMarkets[i],
+    //     metric: selectedMetrics[j]
+    //   });
+    //   console.log("entriesForMetric: " + entriesForMetric.length);
+    // }
     return <OutputTableRow entries={this.props.entries} />;
   },
   render() {
+    // if (true) {
+    //   for (var i = 0; i < this.props.markets.length; i++) {
+    //     return (
+    //       <table className="ui celled structured table output-table">
+    //         {this.renderOutputTableHeader()}
+    //         <tbody>
+    //           {this.renderOutputTableRow()}
+
+    //         </tbody>
+    //         <tfoot></tfoot>
+    //       </table>
+    //     );
+    //   };
+    // }
     return (
       <table className="ui celled structured table output-table">
         {this.renderOutputTableHeader()}
@@ -52,12 +80,17 @@ OutputTableRow = React.createClass({
   propTypes: {
     entries: React.PropTypes.array.isRequired
   },
+
   numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },
+
   renderMetricCell() {
-    return <td className="single line">{this.props.entries[0].metric}</td>;
+    if (this.props.entries.length !== 0) {
+      return <td className="single line">{this.props.entries[0].metric}</td>;
+    }
   },
+
   renderComputedCells() {
     // Extract N and % computations for all 4 weeks for selected mkt / metric
     var arrayN = [], arrayP = [], arrayCombined = [];
